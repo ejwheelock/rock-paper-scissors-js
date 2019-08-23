@@ -6,7 +6,7 @@ function computerPlay() {
 }
 
 function playRound(playerSelection, computerSelection) {
-  let winStr = 'Tie! Try again.';
+  let winStr = 'It\'s a tie!';
   switch (playerSelection.toLowerCase()) {
     case 'rock':
       if (computerSelection === 'paper') winStr = 'You lose! Paper beats Rock!';
