@@ -1,7 +1,7 @@
 function computerPlay() {
   const choices = ['rock','paper','scissors'];
   let num = Math.floor(Math.random()*Math.floor(3));
-  console.log(num);
+  console.log(choices[num]);
   return choices[num];
 }
 
@@ -9,16 +9,16 @@ function playRound(playerSelection, computerSelection) {
   let winStr = 'Tie! Try again.';
   switch (playerSelection.toLowerCase()) {
     case 'rock':
-      if (computerSelection === 'paper') winStr = 'You Lose! Paper beats Rock!';
-      else if (computerSelection === 'scissors') winStr = 'You Win! Rock beats Scissors!';
+      if (computerSelection === 'paper') winStr = 'You lose! Paper beats Rock!';
+      else if (computerSelection === 'scissors') winStr = 'You win! Rock beats Scissors!';
       break;
     case 'paper':
-      if (computerSelection === 'rock') winStr = 'You Win! Paper beats Rock!';
-      else if (computerSelection == 'scissors') winStr = 'You Lose! Scissors beats Paper!';
+      if (computerSelection === 'rock') winStr = 'You win! Paper beats Rock!';
+      else if (computerSelection == 'scissors') winStr = 'You lose! Scissors beats Paper!';
       break;
     case 'scissors':
-        if (computerSelection === 'rock') winStr = 'You Lose! Rock beats Scissors!';
-        else if (computerSelection === 'paper') winStr = 'You Win! Scissors beats Paper!';
+        if (computerSelection === 'rock') winStr = 'You lose! Rock beats Scissors!';
+        else if (computerSelection === 'paper') winStr = 'You win! Scissors beats Paper!';
       break;
     default:
       winStr = 'Something went wrong. Try again.';
@@ -30,21 +30,38 @@ function game() {
   let gameCounter = 0;
   let playWins = 0;
   let compWins = 0;
+  let picks = ['rock','paper','scissors'];
 
   while (gameCounter < 5) {
     let compSelect = computerPlay();
-    let playerSelect = prompt('Do you play rock, paper, or scissors?');
-    let gameStr = playRound(playerSelect, compSelect);
-    console.log(gameStr);
-    if (gameStr.includes('Win')) playWins += 1;
-    else if (gameStr.includes('Lose')) compWins += 1;
+    let playerSelect = "true";
+    while (!picks.includes(playerSelect) && playerSelect !== null) {
+      playerSelect = (prompt('Pick one: rock, paper, or scissors?')).toLowerCase();
+      if (!picks.includes(playerSelect) && playerSelect !== null) alert("Try again.");
+    }
+
+    //alert(`You: ${playerSelect}\nComputer: ${compSelect}`);
+    let gameStr = playRound(playerSelect, compSelect);;
+    
+    console.log(`You: ${playerSelect}\nComputer: ${compSelect}\n\n${gameStr}`);
+    alert(`You: ${playerSelect}\nComputer: ${compSelect}\n\n${gameStr}`);
+    if (gameStr.includes('win')) playWins += 1;
+    else if (gameStr.includes('lose')) compWins += 1;
 
     gameCounter += 1;
-    console.log(`Player: ${playWins}\nComputer: ${compWins}`);
+    console.log(`Round: ${gameCounter}\n\nPlayer: ${playWins}\nComputer: ${compWins}`);
+    alert(`Round: ${gameCounter}\n\nPlayer: ${playWins}\nComputer: ${compWins}`);
   }
 
-  if (playWins > compWins) console.log("You win! Congratulations!");
-  else if (compWins > playWins) console.log("Sorry, you lose! Try again.");
-  else console.log("It's a tie! Everyone wins!");
+  let winStr = "";
+  if (playWins > compWins) winStr = "You win! Congratulations!";
+  else if (compWins > playWins) winStr = "Sorry, you lose! Try again.";
+  else winStr = "It's a tie! Everyone wins!";
+
+  console.log(winStr);
+  alert(winStr);
 
 }
+
+
+//game();
